@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="prodEditForm" novalidate>
+
+      <div class="form-group">
+        <label class="col-md-4">Categories</label>
+        <select class="form-control">
+          <option value="0">--All--</option>
+          <option *ngFor="let category of categories" value={{category.CategoryId}} selected="product.CategoryId">
+            {{category.Name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4">Product Name</label>
+        <input type="text" class="form-control" formControlName="Name" #Name [(ngModel)] = "product.Name" />
+      </div>
+      <div *ngIf="prodEditForm.controls['Name'].invalid && (prodEditForm.controls['Name'].dirty || prodEditForm.controls['Name'].touched)" class="alert alert-danger">
+        <div *ngIf="prodEditForm.controls['Name'].errors.required">
+          Product Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4">Product Description</label>
+        <input type="text" class="form-control" formControlName="Description" #Description [(ngModel)] = "product.Description" />
+      </div>
+      <div class="form-group">
+        <label class="col-md-4">Product URL</label>
+        <input type="text" class="form-control" formControlName="Url" #Description [(ngModel)] = "product.Url" />
+      </div>
+      <div class="form-group">
+        <button type="button" (click)="updateProduct(product.ProductId, product.Name, product.Description, product.Url, product.Categories)"
+                [disabled]="prodEditForm.pristine || prodEditForm.invalid"
+                class="btn btn-primary">
+          Update Product
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
